@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@theme {
+  /* 폰트 */
+  --font-display: "Pretendard", sans-serif;
+
+  /* 메인 블루 컬러 정의 */
+  --color-blue-primary: #3572ef;
+  --color-blue-secondary: #d4eaf7;
+  --color-blue-tertiary: #edf4fb;
+
+  /* 서브 그레이 컬러 정의 */
+  --color-gray-dark: #a0a6ad;
+  --color-gray-normal: #b7bec8;
+  --color-gray-light: #e2e6ec;
+  --color-gray-background: #f5f7fa;
+
+  /* 서브 베이지 컬러 정의 */
+  --color-beige-primary: #fffefb;
+
+  /* 서브 오렌지 컬러 정의 */
+  --color-orange-primary: #f15a29;
+  --color-orange-secondary: #fff2e5;
+
+  /* 서브 네이비 컬러 정의 */
+  --color-navy-primary: #1e2a44;
+
+  /* 서브 옐로우 컬러 정의 */
+  --color-yellow-primary: #ffd233;
+
+  /* 사이즈 정의 */
+  --spacing-22: 5.5rem;
+}
