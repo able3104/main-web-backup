@@ -11,6 +11,8 @@ import ProcessStep from "../../shop/detail/section/processStep";
 import PolicyAccordion from "../../shop/detail/section/policyAccordion";
 import AgencyInfo from "./agencyInfo";
 import QuoteDetail from "./quoteDetail";
+// 기존 NaverMaps 컴포넌트를 가져옵니다. 경로를 주의해서 확인해주세요.
+import NaverMaps from "../../shop/detail/section/NaverMaps";
 import { getSubsidy } from "../../../../apis";
 import { firstPhonePlans } from "../../../../contents/firstPhonePlanData";
 import Footer from "../../../layout/footer";
@@ -45,16 +47,14 @@ const QuoteResultPage = () => {
   }, [quoteDetail?.telecom]);
 
   useEffect(() => {
-    // quoteCode를 이용해 견적 결과를 불러오는 로직을 여기에 작성합니다.
     const fetchQuoteResult = async () => {
       if (!quoteCode) return;
       setIsLoading(true);
 
       try {
-        // API 호출 예시
+        // 이미 API에서 agencyName, agencyLatitude, agencyLongitude 정보를 가져옵니다.
         const data = await getQuoteApi(quoteCode);
         setQuoteDetail(data);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching quote result:", error);
       }
@@ -76,7 +76,7 @@ const QuoteResultPage = () => {
       />
       <Content className="px-0 pt-4 bg-white">
         {isLoading ? (
-          <p className="text-base font-semibold text-gray-dark">
+          <p className="text-base font-semibold text-gray-dark px-4">
             대리점 정보를 불러오는 중입니다...
           </p>
         ) : quoteDetail ? (
@@ -104,26 +104,23 @@ const QuoteResultPage = () => {
             />
             <BenefitCard />
             <ProcessStep />
+
+            {/* [추가]: 유의사항 바로 위에 지도 컴포넌트를 배치합니다. */}
+            <NaverMaps
+              latitude={quoteDetail.agencyLatitude} // 백엔드 응답 필드 확인 (예: agency_latitude)
+              longitude={quoteDetail.agencyLongitude} 
+              agencyName={quoteDetail.agencyName}
+            />
+
             <PolicyAccordion />
           </div>
         ) : (
-          <p className="text-base font-semibold text-gray-dark">
+          <p className="text-base font-semibold text-gray-dark px-4">
             견적 정보를 불러오지 못했습니다.
           </p>
         )}
       </Content>
       <Footer />
-      {/* <BottomCTABar>
-        <button
-          className={cn(
-            "w-full h-14 bg-blue-primary rounded-2xl",
-            "text-white font-semibold"
-          )}
-          onClick={handleQuoteButtonClick}
-        >
-          견적서 받고 최저가로 바로 개통!
-        </button>
-      </BottomCTABar> */}
     </>
   );
 };
