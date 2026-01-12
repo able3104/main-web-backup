@@ -175,9 +175,9 @@ const ShopDetailPage = () => {
               selectedPhonePlan={selectedPhonePlan}
               setSelectedPhonePlan={setSelectedPhonePlan}
             />
-            <NaverMaps />
             <BenefitCard />
             <ProcessStep />
+            <NaverMaps />
             <PolicyAccordion />
           </div>
         )}
