@@ -30,7 +30,7 @@ export const searchAgenciesApi = async (data: SearchAgenciesRequest) => {
   try {
     const res = await defaultApiClient.post<SearchAgenciesResponse>(
       "/user/searchAgencies",
-      data
+      data,
     );
     return res.data;
   } catch (error) {
@@ -62,13 +62,17 @@ export interface AgencyDetailResponse {
 
   startTime: string;
   endTime: string;
+  agencyLatitude: number;
+  agencyLongitude: number;
+
+  telecom: string;
 }
 
 export const getAgencyDetail = async (data: AgencyDetailRequest) => {
   try {
     const res = await defaultApiClient.post<AgencyDetailResponse>(
       "/user/getAgencyDetail",
-      data
+      data,
     );
     return res.data;
   } catch (error) {
@@ -80,7 +84,7 @@ export const getAgencyDetail = async (data: AgencyDetailRequest) => {
 export const getSubsidy = async (telecom: string) => {
   try {
     const res = await defaultApiClient.get<{ subsidyValue: number }>(
-      `/user/getSubsidy?telecom=${telecom}`
+      `/user/getSubsidy?telecom=${telecom}`,
     );
     return res.data.subsidyValue;
   } catch (error) {

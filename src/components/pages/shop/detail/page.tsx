@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AgencyDetailResponse, getAgencyDetail } from "../../../../apis";
 import { AxiosError } from "axios";
@@ -16,7 +16,9 @@ import { cn } from "cn-func";
 import { useSetAtom } from "jotai";
 import { loginModalOpenAtom } from "../../../common/modal/login/atom";
 import { useAuth } from "../../../auth/authProvider";
-import NaverMaps from "./section/NaverMaps";
+
+// Lazy load NaverMaps to prevent blocking during page transitions
+const NaverMaps = lazy(() => import("./section/NaverMaps"));
 
 const ShopDetailPage = () => {
   const [searchParams] = useSearchParams();
@@ -24,7 +26,7 @@ const ShopDetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState<string | null>(null);
   const [agencyDetail, setAgencyDetail] = useState<AgencyDetailResponse | null>(
-    null
+    null,
   );
   const { currentUser } = useAuth();
   const loginModalOpen = useSetAtom(loginModalOpenAtom);
@@ -56,10 +58,10 @@ const ShopDetailPage = () => {
         `/quote?agency_id=${agencyId}&phone_brand=${brand}&phone_name=${device}&phone_price=${
           agencyDetail.phonePrice
         }&phone_plan=${encodeURIComponent(
-          JSON.stringify(selectedPhonePlan || {})
+          JSON.stringify(selectedPhonePlan || {}),
         )}&discount=${encodeURIComponent(
-          JSON.stringify(selectedDiscounts) || "[]"
-        )}&subscription_type=${subscriptionType}&telecom=${carrier}`
+          JSON.stringify(selectedDiscounts) || "[]",
+        )}&subscription_type=${subscriptionType}&telecom=${carrier}`,
       );
     } else {
       // 모달열기
@@ -72,10 +74,10 @@ const ShopDetailPage = () => {
             `/quote?agency_id=${agencyId}&phone_brand=${brand}&phone_name=${device}&phone_price=${
               agencyDetail.phonePrice
             }&phone_plan=${encodeURIComponent(
-              JSON.stringify(selectedPhonePlan || {})
+              JSON.stringify(selectedPhonePlan || {}),
             )}&discount=${encodeURIComponent(
-              JSON.stringify(selectedDiscounts) || "[]"
-            )}&subscription_type=${subscriptionType}&telecom=${carrier}`
+              JSON.stringify(selectedDiscounts) || "[]",
+            )}&subscription_type=${subscriptionType}&telecom=${carrier}`,
           );
         },
       });
@@ -103,7 +105,7 @@ const ShopDetailPage = () => {
           setIsError(
             error.response?.status === 404
               ? "조건에 맞는 대리점이 없습니다."
-              : "대리점 상세정보를 불러오는 중 오류가 발생했습니다."
+              : "대리점 상세정보를 불러오는 중 오류가 발생했습니다.",
           );
           setIsLoading(false);
         } else {
@@ -143,50 +145,70 @@ const ShopDetailPage = () => {
     );
   }
 
-  if (isError || !agencyDetail) return null;
+  // agencyDetail이 없거나 에러가 있으면 조기 반환
+  if (!agencyDetail) {
+    return (
+      <>
+        <Header
+          title="대리점 정보 조회중"
+          subTitle="잠시만 기다려주세요."
+          backButton
+          backButtonHandler={() => navigate(-1)}
+        />
+        <Content className="px-0 pt-4 bg-white">
+          <p className="text-base font-semibold text-gray-dark px-4 text-center py-10">
+            대리점 정보를 불러오는 중입니다...
+          </p>
+        </Content>
+      </>
+    );
+  }
 
   return (
     <>
       <Header
-        title={isLoading ? "대리점 정보 조회중" : agencyDetail.agencyName}
-        subTitle={
-          isLoading ? "잠시만 기다려주세요." : agencyDetail.agencyAddress
-        }
+        title={agencyDetail.agencyName}
+        subTitle={agencyDetail.agencyAddress}
         backButton
         backButtonHandler={() => navigate(-1)}
       />
       <Content className="px-0 pt-4 bg-white" bottomCTABar>
-        {isLoading ? (
-          <p className="text-base font-semibold text-gray-dark">
-            대리점 정보를 불러오는 중입니다...
-          </p>
-        ) : (
-          <div className="flex flex-col gap-5">
-            <ProductHero imageUrl={agencyDetail.phoneImage} {...agencyDetail} />
-            <FnqBanner />
-            <DiscountSelector
-              selectedDiscounts={selectedDiscounts}
-              setSelectedDiscounts={setSelectedDiscounts}
-            />
-            <PriceCalculator
-              telecom={carrier}
-              phonePrice={agencyDetail.phonePrice}
-              phoneOriginalPrice={agencyDetail.phoneOriginalPrice}
-              selectedPhonePlan={selectedPhonePlan}
-              setSelectedPhonePlan={setSelectedPhonePlan}
-            />
-            <BenefitCard />
-            <ProcessStep />
+        <div className="flex flex-col gap-5">
+          <ProductHero imageUrl={agencyDetail.phoneImage} {...agencyDetail} />
+          <FnqBanner />
+          <DiscountSelector
+            selectedDiscounts={selectedDiscounts}
+            setSelectedDiscounts={setSelectedDiscounts}
+          />
+          <PriceCalculator
+            telecom={carrier}
+            phonePrice={agencyDetail.phonePrice}
+            phoneOriginalPrice={agencyDetail.phoneOriginalPrice}
+            selectedPhonePlan={selectedPhonePlan}
+            setSelectedPhonePlan={setSelectedPhonePlan}
+          />
+          <BenefitCard />
+          <ProcessStep />
+          <Suspense 
+            fallback={
+              <div className="flex flex-col gap-4 px-4">
+                <h2 className="text-xl font-semibold h-6">위치</h2>
+                <div className="flex items-center justify-center w-full h-[400px] rounded-xl bg-gray-100 border border-gray-200">
+                  <p className="text-sm text-gray-500">지도를 불러오는 중...</p>
+                </div>
+              </div>
+            }
+          >
             <NaverMaps />
-            <PolicyAccordion />
-          </div>
-        )}
+          </Suspense>
+          <PolicyAccordion />
+        </div>
       </Content>
       <BottomCTABar>
         <button
           className={cn(
             "w-full h-14 bg-blue-primary rounded-2xl",
-            "text-white font-semibold"
+            "text-white font-semibold",
           )}
           onClick={handleQuoteButtonClick}
         >

@@ -35,8 +35,8 @@ const CalculatorDetail = ({
                 <path
                   d="M5.5 5.5V10.5H10.5"
                   stroke="#A0A6AD"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               공통 지원금
@@ -52,8 +52,8 @@ const CalculatorDetail = ({
                 <path
                   d="M5.5 5.5V10.5H10.5"
                   stroke="#A0A6AD"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               판매점 지원금
