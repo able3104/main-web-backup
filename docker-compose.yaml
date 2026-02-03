@@ -5,8 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        VITE_NAVER_MAP_CLIENT_ID: tb9ayjajhk
     ports:
       - "3005:80"
-    # env_file:
-    #   - .env
-    #   - .env.production

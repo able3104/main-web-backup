@@ -8,6 +8,7 @@ import ProductHero from "./section/productHero";
 import FnqBanner from "./section/fnqBanner";
 import DiscountSelector from "./section/discountSelector";
 import PriceCalculator from "./section/priceCalculator";
+// import PhonePlanList from "./section/phonePlanList";
 import BenefitCard from "./section/benefitCard";
 import ProcessStep from "./section/processStep";
 import PolicyAccordion from "./section/policyAccordion";
@@ -187,6 +188,7 @@ const ShopDetailPage = () => {
             selectedPhonePlan={selectedPhonePlan}
             setSelectedPhonePlan={setSelectedPhonePlan}
           />
+          {/* <PhonePlanList telecom={carrier || ""} /> */}
           <BenefitCard />
           <ProcessStep />
           <Suspense 

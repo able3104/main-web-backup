@@ -30,7 +30,7 @@ export const phonePlans = {
       price: 55000,
       description: "웹서핑을 합리적인 가격으로 이용할래요",
     },
-    { name: "컴팩트", price: 39000, description: "카톡, 연락만 하면 충분해요" },
+    //{ name: "컴팩트", price: 39000, description: "카톡, 연락만 하면 충분해요" },
   ],
   KT: [
     {
@@ -63,11 +63,11 @@ export const phonePlans = {
       price: 55000,
       description: "웹서핑을 합리적인 가격으로 이용할래요",
     },
-    {
-      name: "5G 슬림 4GB",
-      price: 37000,
-      description: "카톡, 연락만 하면 충분해요",
-    },
+    // {
+    //   name: "5G 슬림 4GB",
+    //   price: 37000,
+    //   description: "카톡, 연락만 하면 충분해요",
+    // },
   ],
   "LG U+": [
     {
@@ -100,10 +100,10 @@ export const phonePlans = {
       price: 55000,
       description: "웹서핑을 합리적인 가격으로 이용할래요",
     },
-    {
-      name: "5G 미니 +",
-      price: 37000,
-      description: "카톡, 연락만 하면 충분해요",
-    },
+    // {
+    //   name: "5G 미니 +",
+    //   price: 37000,
+    //   description: "카톡, 연락만 하면 충분해요",
+    // },
   ],
 };

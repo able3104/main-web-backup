@@ -3,11 +3,17 @@ FROM node:22 AS build
 
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
+
+# 빌드 시 환경변수를 ARG로 받음
+ARG VITE_NAVER_MAP_CLIENT_ID=tb9ayjajhk
+
+# 환경변수를 빌드에 사용
+ENV VITE_NAVER_MAP_CLIENT_ID=$VITE_NAVER_MAP_CLIENT_ID
 
 RUN npm run build
 # RUN npm run build:production
