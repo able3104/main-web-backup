@@ -69,7 +69,7 @@ export const phonePlans = {
     //   description: "카톡, 연락만 하면 충분해요",
     // },
   ],
-  "LG U+": [
+  "LG U": [
     {
       name: "5G 시그니처",
       price: 130000,

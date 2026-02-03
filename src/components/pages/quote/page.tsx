@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { registerQuoteApi } from "../../../apis/quote";
 import { auth } from "../../../firebase/config";
+import { normalizeCarrierName } from "../../../utils/carrierUtils";
 
 const QuotePage = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const QuotePage = () => {
           phonePrice: Number(phonePrice),
           discount: discount,
           subscriptionType: subscriptionType,
-          telecom: telecom,
+          telecom: normalizeCarrierName(telecom),
           customerName: userName,
         });
 

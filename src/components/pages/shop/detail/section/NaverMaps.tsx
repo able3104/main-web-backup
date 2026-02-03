@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import NaverMapBox from "../../../../common/NaverMapBox";
+import { normalizeCarrierName } from "../../../../../utils/carrierUtils";
 
 // 대리점 상세 정보 인터페이스
 interface AgencyDetail {
@@ -36,7 +37,7 @@ const NaverMaps = () => {
           agency_id: Number(agencyId),
           phone_brand: phoneBrand,
           phone_name: phoneName,
-          telecom: telecom,
+          telecom: normalizeCarrierName(telecom),
           subscription_type: subscriptionType
         });
         

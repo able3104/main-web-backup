@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AgencyDetailResponse, getAgencyDetail } from "../../../../apis";
 import { AxiosError } from "axios";
+import { normalizeCarrierName } from "../../../../utils/carrierUtils";
 import Header from "../../../layout/header";
 import Content from "../../../layout/content";
 import ProductHero from "./section/productHero";
@@ -95,7 +96,7 @@ const ShopDetailPage = () => {
           agencyId: Number(agencyId),
           phoneBrand: brand,
           phoneName: device,
-          telecom: carrier,
+          telecom: normalizeCarrierName(carrier),
           subscriptionType: subscriptionType,
         });
         setAgencyDetail(res);

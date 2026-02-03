@@ -3,6 +3,7 @@ import Header from "../../../layout/header";
 import Content from "../../../layout/content";
 import { useEffect, useState } from "react";
 import { AgencyInfo, searchAgenciesApi } from "../../../../apis";
+import { normalizeCarrierName } from "../../../../utils/carrierUtils";
 import Category from "./category";
 import { AxiosError } from "axios";
 import ShopListItem from "./item";
@@ -30,7 +31,7 @@ const ShopListPage = () => {
         const res = await searchAgenciesApi({
           phoneBrand: brand,
           phoneName: device,
-          telecom: carrier,
+          telecom: normalizeCarrierName(carrier),
           canChangeTelecom: switchCarrier,
         });
         setAgencies(res.agency);
