@@ -41,8 +41,8 @@ const NaverMapBox = ({
         return;
       }
 
-      // 이미 스크립트 태그가 있는지 확인
-      const existingScript = document.querySelector('script[src*="oapi.map.naver.com"]');
+      // 이미 올바른 스크립트 태그가 있는지 확인 (ncpKeyId 파라미터 사용)
+      const existingScript = document.querySelector('script[src*="oapi.map.naver.com"][src*="ncpKeyId"]');
       if (existingScript) {
         console.log("네이버 지도 스크립트 로딩 대기 중...");
         const checkApiLoaded = () => {
@@ -55,6 +55,13 @@ const NaverMapBox = ({
         };
         checkApiLoaded();
         return;
+      }
+
+      // 잘못된 파라미터로 로드된 스크립트가 있으면 제거
+      const wrongScript = document.querySelector('script[src*="oapi.map.naver.com"][src*="ncpClientId"]');
+      if (wrongScript) {
+        console.warn("잘못된 네이버 지도 스크립트 발견, 제거 후 재로드");
+        wrongScript.remove();
       }
 
       // 새로운 스크립트 로드
