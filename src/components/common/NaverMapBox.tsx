@@ -66,7 +66,7 @@ const NaverMapBox = ({
       }
 
       const script = document.createElement("script");
-      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`;
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${clientId}`;
       script.async = true;
       script.onload = () => {
         console.log("네이버 지도 스크립트 로드 성공");
