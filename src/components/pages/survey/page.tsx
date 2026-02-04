@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../layout/header";
 import SelectCarrier from "./form/selectCarrier";
 import SelectDevice from "./form/selectDevice";
@@ -16,10 +16,16 @@ import {
 } from "./atom";
 import { switchCarrierData } from "../../../contents/switchCarrierData";
 import { cn } from "cn-func";
+import TestNoticeModal from "./testNoticeModal";
 
 const SurveyPage = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsModalOpen(true);
+  }, []);
   const selectedCompany = useAtomValue(deviceDataTypeAtom);
   const [selectedDevice, setSelectedDevice] = useAtom(surveySelectedDeviceAtom);
   const [selectedCarrier, setSelectedCarrier] = useAtom(
@@ -117,6 +123,10 @@ const SurveyPage = () => {
           {surveyForms[currentIndex].buttonText}
         </button>
       </BottomCTABar>
+      <TestNoticeModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 };
