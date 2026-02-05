@@ -7,7 +7,7 @@ import { normalizeCarrierName } from "../../../../utils/carrierUtils";
 import Category from "./category";
 import { AxiosError } from "axios";
 import ShopListItem from "./item";
-import Footer from "../../../layout/footer";
+
 
 const ShopListPage = () => {
   const navigate = useNavigate();
@@ -92,7 +92,6 @@ const ShopListPage = () => {
           )}
         </div>
       </Content>
-      <Footer />
     </>
   );
 };

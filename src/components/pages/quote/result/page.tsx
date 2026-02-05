@@ -13,7 +13,7 @@ import PolicyAccordion from "../../shop/detail/section/policyAccordion";
 import AgencyInfo from "./agencyInfo";
 import QuoteDetail from "./quoteDetail";
 import { firstPhonePlans } from "../../../../contents/firstPhonePlanData";
-import Footer from "../../../layout/footer";
+
 
 // Lazy load NaverMaps to prevent blocking during page transitions
 const NaverMaps = lazy(() => import("./NaverMaps"));
@@ -168,7 +168,6 @@ const QuoteResultPage = () => {
           </div>
         )}
       </Content>
-      <Footer />
     </>
   );
 };
