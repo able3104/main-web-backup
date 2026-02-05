@@ -91,7 +91,7 @@ const PriceCalculator = ({
               {selectedPhonePlan ? (
                 <>
                   <span className="text-base font-medium">월</span>
-                  {`${totalPrice.toLocaleString("ko-KR")}원`}
+                  {`${Math.floor(totalPrice).toLocaleString("ko-KR")}원`}
                 </>
               ) : (
                 "-"
