@@ -10,7 +10,7 @@ const BottomCTABar = ({ children }: BottomCTABarProps) => {
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 right-0",
+        "fixed bottom-0 left-0 right-0 w-full sm:w-[430px] mx-auto",
         "flex flex-col justify-end items-center gap-3",
         "w-full h-28 px-3 pb-6",
         "bg-gradient-to-b from-[#F5F7FA]/5 to-[#FFFEFB]"

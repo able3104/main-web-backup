@@ -19,7 +19,7 @@ const Header = ({
   return (
     <header
       className={cn(
-        "absolute top-0 left-0 right-0 z-50",
+        "sticky top-0 left-0 right-0 z-50",
         "flex flex-col justify-center",
         "h-20 px-4 bg-white",
         "border-b border-gray-light"
