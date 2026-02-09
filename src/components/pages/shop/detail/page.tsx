@@ -213,6 +213,7 @@ const ShopDetailPage = () => {
             "w-full h-14 bg-blue-primary rounded-2xl",
             "text-white font-semibold",
           )}
+          style={{ zIndex: 100 }}
           onClick={handleQuoteButtonClick}
         >
           견적서 받고 최저가로 바로 개통!
