@@ -15,6 +15,7 @@ const BottomCTABar = ({ children }: BottomCTABarProps) => {
         "w-full h-28 px-3 pb-6",
         "bg-gradient-to-b from-[#F5F7FA]/5 to-[#FFFEFB]"
       )}
+      style={{ zIndex: 100 }}
     >
       {children}
     </div>

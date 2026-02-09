@@ -19,11 +19,12 @@ const Header = ({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50",
+        "absolute top-0 left-0 right-0 z-50",
         "flex flex-col justify-center",
         "h-20 px-4 bg-white",
         "border-b border-gray-light"
       )}
+      style={{ zIndex: 9999 }}
     >
       <div className="grid grid-cols-[2rem_1fr_2rem]">
         {backButton ? (
